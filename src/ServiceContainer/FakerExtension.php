@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
-class BehatFakerExtension implements Extension
+class FakerExtension implements Extension
 {
     public function initialize(ExtensionManager $extensionManager): void
     {
