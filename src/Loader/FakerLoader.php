@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Behat\FakerExtension\Loader;
+namespace Plozmun\FakerExtension\Loader;
 
-use Behat\FakerExtension\Parser\FeatureParser;
+use Plozmun\FakerExtension\Parser\FeatureParser;
 use Behat\Gherkin\Loader\LoaderInterface;
 
 final class FakerLoader implements LoaderInterface

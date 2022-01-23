@@ -16,7 +16,7 @@ composer require --dev plozmun/behat-faker-extension
 
 default:
     extensions:
-        Behat\FakerExtension\ServiceContainer\BehatFakerExtension:
+        Plozmun\FakerExtension:
             locale: 'es_es' # Optional to enable locale functions
 ```
 

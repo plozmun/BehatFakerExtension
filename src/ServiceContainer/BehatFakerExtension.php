@@ -1,6 +1,6 @@
 <?php
 
-namespace Behat\FakerExtension\ServiceContainer;
+namespace Plozmun\FakerExtension\ServiceContainer;
 
 use Behat\Behat\Gherkin\ServiceContainer\GherkinExtension;
 use Behat\Testwork\ServiceContainer\Extension;
@@ -29,7 +29,7 @@ class BehatFakerExtension implements Extension
     {
         $container->setParameter('behat_faker.locale', $config['locale']);
         $this->loadParser($container);
-        $definition = new Definition('Behat\FakerExtension\Loader\FakerLoader', [
+        $definition = new Definition('Plozmun\FakerExtension\Loader\FakerLoader', [
             new Reference('gherkin.loader.gherkin_file'),
             new Reference('behat_faker.parser.feature'),
         ]);
@@ -39,17 +39,17 @@ class BehatFakerExtension implements Extension
 
     private function loadParser(ContainerBuilder $container): void
     {
-        $definition = new Definition('Behat\FakerExtension\Parser\StepParser', [
+        $definition = new Definition('Plozmun\FakerExtension\Parser\StepParser', [
             $container->getParameter('behat_faker.locale'),
         ]);
         $container->setDefinition('behat_faker.parser.step', $definition);
 
-        $definition = new Definition('Behat\FakerExtension\Parser\ScenarioParser', [
+        $definition = new Definition('Plozmun\FakerExtension\Parser\ScenarioParser', [
             new Reference('behat_faker.parser.step'),
         ]);
         $container->setDefinition('behat_faker.parser.scenario', $definition);
 
-        $definition = new Definition('Behat\FakerExtension\Parser\FeatureParser', [
+        $definition = new Definition('Plozmun\FakerExtension\Parser\FeatureParser', [
             new Reference('behat_faker.parser.scenario'),
         ]);
         $container->setDefinition('behat_faker.parser.feature', $definition);

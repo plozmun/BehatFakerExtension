@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Behat\FakerExtension\Transformer;
+namespace Plozmun\FakerExtension\Transformer;
 
 use Behat\Gherkin\Node\TableNode;
 
