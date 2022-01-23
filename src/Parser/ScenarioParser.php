@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Behat\FakerExtension\Parser;
 
+use Behat\Gherkin\Node\ScenarioInterface;
 use Behat\Gherkin\Node\ScenarioNode;
 
 final class ScenarioParser
@@ -18,7 +19,7 @@ final class ScenarioParser
         $this->stepParser = $stepParser;
     }
 
-    public function parse(ScenarioNode $scenario): ScenarioNode
+    public function parse(ScenarioInterface $scenario): ScenarioNode
     {
         $steps = [];
         foreach ($scenario->getSteps() as $step) {

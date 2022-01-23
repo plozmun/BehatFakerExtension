@@ -2,9 +2,7 @@
 
 namespace Behat\FakerExtension\ServiceContainer;
 
-use Behat\Behat\EventDispatcher\ServiceContainer\EventDispatcherExtension;
 use Behat\Behat\Gherkin\ServiceContainer\GherkinExtension;
-use Behat\Behat\Tester\ServiceContainer\TesterExtension;
 use Behat\Testwork\ServiceContainer\Extension;
 use Behat\Testwork\ServiceContainer\ExtensionManager;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
@@ -39,7 +37,7 @@ class BehatFakerExtension implements Extension
         $container->setDefinition('faker_behat.loader', $definition);
     }
 
-    private function loadParser(ContainerBuilder $container)
+    private function loadParser(ContainerBuilder $container): void
     {
         $definition = new Definition('Behat\FakerExtension\Parser\StepParser', [
             $container->getParameter('behat_faker.locale'),

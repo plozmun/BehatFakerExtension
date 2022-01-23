@@ -1,0 +1,9 @@
+parameters:
+    level: max
+    paths:
+        - .
+    checkMissingIterableValueType: false
+
+    excludePaths:
+        - %currentWorkingDirectory%/vendor/*
+        - %currentWorkingDirectory%/src/ServiceContainer/*

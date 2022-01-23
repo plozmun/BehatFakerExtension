@@ -34,9 +34,8 @@ final class FakerLoader implements LoaderInterface
 
     public function load($resource)
     {
-        if (!$features = $this->loader->load($resource)) {
-            return;
-        }
+        $features = $this->loader->load($resource);
+
         $fakerFeatures = [];
         foreach ($features as $feature) {
             $fakerFeatures[] = $this->featureParser->parse($feature);

@@ -33,7 +33,7 @@ final class FeatureParser
             $feature->getKeyword(),
             $feature->getLanguage(),
             $feature->getFile(),
-            $feature->getLine(),
+            $feature->getLine()
         );
     }
 }
