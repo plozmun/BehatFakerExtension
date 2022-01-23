@@ -1,6 +1,6 @@
 {
     "name": "plozmun/behat-faker-extension",
-    "description": "Beehat FaKer Extension",
+    "description": "Behat Faker Extension",
     "type": "behat-extension",
     "require": {
         "php": "^7.2",
@@ -9,7 +9,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Behar\\FakerExtension\\": "src/"
+            "Behat\\FakerExtension\\": "src/"
         }
     },
     "authors": [
