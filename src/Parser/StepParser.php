@@ -14,6 +14,16 @@ use Behat\Gherkin\Node\TableNode;
 
 final class StepParser
 {
+    /**
+     * @var string
+     */
+    private $locale;
+    
+    public function __construct(string $locale)
+    {
+        $this->locale = $locale;
+    }
+
     public function parse(StepNode $step): StepNode
     {
         return new StepNode(
@@ -34,10 +44,10 @@ final class StepParser
     {
         return array_map(function (ArgumentInterface $argument) {
             if ($argument instanceof TableNode) {
-                return TableNodeTransformer::transform($argument);
+                return TableNodeTransformer::transform($argument, $this->locale);
             }
             if ($argument instanceof PyStringNode) {
-                return PyStringNodeTransformer::transform($argument);
+                return PyStringNodeTransformer::transform($argument, $this->locale);
             }
         }, $arguments);
     }

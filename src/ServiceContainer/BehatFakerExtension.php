@@ -20,6 +20,7 @@ class BehatFakerExtension implements Extension
 
     public function configure(ArrayNodeDefinition $builder): void
     {
+        $builder->children()->scalarNode('locale')->defaultValue('en');
     }
 
     public function process(ContainerBuilder $container): void
@@ -28,6 +29,7 @@ class BehatFakerExtension implements Extension
 
     public function load(ContainerBuilder $container, array $config): void
     {
+        $container->setParameter('behat_faker.locale', $config['locale']);
         $this->loadParser($container);
         $definition = new Definition('Behat\FakerExtension\Loader\FakerLoader', [
             new Reference('gherkin.loader.gherkin_file'),
@@ -39,7 +41,9 @@ class BehatFakerExtension implements Extension
 
     private function loadParser(ContainerBuilder $container)
     {
-        $definition = new Definition('Behat\FakerExtension\Parser\StepParser');
+        $definition = new Definition('Behat\FakerExtension\Parser\StepParser', [
+            $container->getParameter('behat_faker.locale'),
+        ]);
         $container->setDefinition('behat_faker.parser.step', $definition);
 
         $definition = new Definition('Behat\FakerExtension\Parser\ScenarioParser', [

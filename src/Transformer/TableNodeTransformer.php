@@ -8,7 +8,7 @@ use Behat\Gherkin\Node\TableNode;
 
 class TableNodeTransformer
 {
-    public static function transform(TableNode $tableNode): TableNode
+    public static function transform(TableNode $tableNode, string $locale): TableNode
     {
         return $tableNode;
     }
