@@ -1,0 +1,21 @@
+{
+    "name": "plozmun/behat-faker-extension",
+    "description": "Beehat FaKer Extension",
+    "type": "behat-extension",
+    "require": {
+        "php": "^7.2",
+        "behat/behat": "^3.10",
+        "fakerphp/faker": "^1.17"
+    },
+    "autoload": {
+        "psr-4": {
+            "Behar\\FakerExtension\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Pablo Lozano",
+            "email": "lozanomunarriz@gmail.com"
+        }
+    ]
+}
