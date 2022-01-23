@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Behat\FakerExtension\Parser;
+namespace Plozmun\FakerExtension\Parser;
 
 use Behat\Gherkin\Node\ScenarioInterface;
 use Behat\Gherkin\Node\ScenarioNode;

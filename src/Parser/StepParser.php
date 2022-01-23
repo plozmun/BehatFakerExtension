@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Behat\FakerExtension\Parser;
+namespace Plozmun\FakerExtension\Parser;
 
-use Behat\FakerExtension\Transformer\PyStringNodeTransformer;
-use Behat\FakerExtension\Transformer\TableNodeTransformer;
+use Plozmun\FakerExtension\Transformer\PyStringNodeTransformer;
+use Plozmun\FakerExtension\Transformer\TableNodeTransformer;
 use Behat\Gherkin\Node\ArgumentInterface;
 use Behat\Gherkin\Node\FeatureNode;
 use Behat\Gherkin\Node\PyStringNode;
