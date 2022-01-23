@@ -9,9 +9,9 @@ use Faker\Factory;
 
 class PyStringNodeTransformer
 {
-    public static function transform(PyStringNode $node): PyStringNode
+    public static function transform(PyStringNode $node, string $locale): PyStringNode
     {
-        $faker = Factory::create('es_es');
+        $faker = Factory::create($locale);
 
         $strings = array_map(function (string $s) use ($faker) {
             return $faker->parse($s);
