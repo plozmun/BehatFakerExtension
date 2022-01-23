@@ -11,6 +11,7 @@ use Behat\Gherkin\Node\FeatureNode;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\StepNode;
 use Behat\Gherkin\Node\TableNode;
+use Faker\Factory;
 
 final class StepParser
 {
@@ -35,11 +36,17 @@ final class StepParser
         );
     }
 
-    private function parseText(string $text)
+    private function parseText(string $text): string
     {
-        return $text;
+        $faker = Factory::create($this->locale);
+
+        return $faker->parse($text);
     }
 
+    /**
+     * @param array<int, ArgumentInterface> $arguments
+     * @return array<int, ArgumentInterface>
+     */
     private function parseArguments(array $arguments): array
     {
         return array_map(function (ArgumentInterface $argument) {

@@ -1,0 +1,80 @@
+name: Test application
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+      - '[0-9]+.[0-9]+'
+
+jobs:
+  test:
+    name: "Run tests with php ${{ matrix.php-version }}"
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          -   php-version: '7.2'
+              composer-flags: '--prefer-dist --no-interaction'
+              tools: 'composer:v2'
+              phpstan: true
+              lint-container: true
+              env:
+                SYMFONY_DEPRECATIONS_HELPER: disabled
+          -   php-version: '7.3'
+              composer-flags: '--prefer-dist --no-interaction'
+              tools: 'composer:v2'
+              phpstan: true
+              lint-container: true
+              env:
+                SYMFONY_DEPRECATIONS_HELPER: disabled
+          -   php-version: '7.4'
+              composer-flags: '--prefer-dist --no-interaction'
+              tools: 'composer:v2'
+              phpstan: true
+              lint-container: true
+              env:
+                SYMFONY_DEPRECATIONS_HELPER: disabled
+          -   php-version: '8.0'
+              composer-flags: '--prefer-dist --no-interaction'
+              tools: 'composer:v2'
+              phpstan: true
+              lint-container: true
+              env:
+                SYMFONY_DEPRECATIONS_HELPER: disabled
+
+    steps:
+      -   name: Checkout project
+          uses: actions/checkout@v2
+
+      -   name: Install and configure PHP
+          uses: shivammathur/setup-php@v2
+          with:
+            php-version: ${{ matrix.php-version }}
+            extensions: ${{ matrix.php-extensions }}
+            tools: ${{ matrix.tools }}
+            coverage: none
+
+      -   name: Validate composer.json and composer.lock
+          run: composer validate
+
+      -   name: Cache Composer packages
+          id: composer-cache
+          uses: actions/cache@v2
+          with:
+            path: vendor
+            key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+            restore-keys: |
+              ${{ runner.os }}-php-
+
+      -   name: Install dependencies
+          if: steps.composer-cache.outputs.cache-hit != 'true'
+          run: composer install --prefer-dist --no-progress
+
+      -   name: Run PHPStan
+          run: vendor/bin/phpstan analyse -c phpstan.neon
+
+      -   name: Run Code Sniffer
+          run: vendor/bin/phpcs
