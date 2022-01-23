@@ -34,7 +34,7 @@ Feature: Create a Book
 
   Scenario: Send post to create a new book
     When I add "Content-Type" header equal to "application/json"
-    When I send a "POST" request to "/api/v1/book" with body:
+    When I send a "POST" request to "/api/v1/book/{{ean13}}" with body:
     """
     {
       "author": {
