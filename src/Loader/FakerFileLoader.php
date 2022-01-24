@@ -9,6 +9,7 @@ use Behat\Gherkin\Loader\AbstractFileLoader;
 use Behat\Gherkin\Node\FeatureNode;
 use Behat\Gherkin\Parser;
 use Faker\Factory;
+use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 
 final class FakerFileLoader extends AbstractFileLoader
 {
@@ -82,7 +83,13 @@ final class FakerFileLoader extends AbstractFileLoader
             throw new \RuntimeException(sprintf('Error reading file %s', $path));
         }
         $faker = Factory::create($this->locale);
-        $content = $faker->parse($content);
+        $expressionLanguage = new ExpressionLanguage();
+
+        $callback = function ($matches) use ($faker, $expressionLanguage) {
+            $expressionLanguage->evaluate("faker.".$matches[0], ['faker' => $faker]);
+        };
+
+        $content = preg_replace_callback('#\{\{(.*?)\}\}#', $callback, $content);
 
         return $this->parser->parse($content, $path);
     }
