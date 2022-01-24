@@ -28,31 +28,32 @@ class FakerExtension implements Extension
     public function load(ContainerBuilder $container, array $config): void
     {
         $container->setParameter('behat_faker.locale', $config['locale']);
-        $this->loadParser($container);
-        $definition = new Definition('Plozmun\FakerExtension\Loader\FakerLoader', [
-            new Reference('gherkin.loader.gherkin_file'),
-            new Reference('behat_faker.parser.feature'),
-        ]);
-        $definition->addTag(GherkinExtension::LOADER_TAG, array('priority' => 100));
-        $container->setDefinition('faker_behat.loader', $definition);
+        $this->loadDefaultLoaders($container, $config['cache']);
     }
 
-    private function loadParser(ContainerBuilder $container): void
+    /**
+     * Loads gherkin loaders.
+     *
+     * @param ContainerBuilder $container
+     * @param string           $cachePath
+     */
+    private function loadDefaultLoaders(ContainerBuilder $container, $cachePath)
     {
-        $definition = new Definition('Plozmun\FakerExtension\Parser\StepParser', [
+        if ($cachePath) {
+            $cacheDefinition = new Definition('Behat\Gherkin\Cache\FileCache', array($cachePath));
+        } else {
+            $cacheDefinition = new Definition('Behat\Gherkin\Cache\MemoryCache');
+        }
+
+        $definition = new Definition('Plozmun\FakerExtension\Loader\FakerFileLoader', array(
+            new Reference('gherkin.parser'),
+            $cacheDefinition,
             $container->getParameter('behat_faker.locale'),
-        ]);
-        $container->setDefinition('behat_faker.parser.step', $definition);
+        ));
 
-        $definition = new Definition('Plozmun\FakerExtension\Parser\ScenarioParser', [
-            new Reference('behat_faker.parser.step'),
-        ]);
-        $container->setDefinition('behat_faker.parser.scenario', $definition);
-
-        $definition = new Definition('Plozmun\FakerExtension\Parser\FeatureParser', [
-            new Reference('behat_faker.parser.scenario'),
-        ]);
-        $container->setDefinition('behat_faker.parser.feature', $definition);
+        $definition->addMethodCall('setBasePath', ['%paths.base%']);
+        $definition->addTag(GherkinExtension::LOADER_TAG, array('priority' => 100));
+        $container->setDefinition('faker_behat.loader', $definition);
     }
 
     public function getConfigKey(): string
