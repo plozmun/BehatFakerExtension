@@ -60,34 +60,30 @@ final class FakerFileLoader extends AbstractFileLoader
     public function load($path)
     {
         $path = $this->findAbsolutePath($path);
-
-        if ($this->cache) {
-            if ($this->cache->isFresh($path, filemtime($path))) {
-                $feature = $this->cache->read($path);
-            } elseif (null !== $feature = $this->parseFeature($path)) {
-                $this->cache->write($path, $feature);
-            }
-        } else {
-            $feature = $this->parseFeature($path);
+        if (false === $filetime = filemtime($path)) {
+            throw new \RuntimeException(sprintf('Error getting the modification time for file %s', $path));
         }
 
-        return null !== $feature ? array($feature) : array();
+        if ($this->cache->isFresh($path, $filetime)) {
+            $feature = $this->cache->read($path);
+        } elseif (null !== $feature = $this->parseFeature($path)) {
+            $this->cache->write($path, $feature);
+        }
+
+        return null !== $feature ? [$feature]: [];
     }
 
     /**
      * Parses feature at provided absolute path.
-     *
-     * @param string $path Feature path
-     *
-     * @return FeatureNode
      */
-    protected function parseFeature($path)
+    protected function parseFeature(string $path): ?FeatureNode
     {
-        $content = file_get_contents($path);
+        if (false === $content = file_get_contents($path)) {
+            throw new \RuntimeException(sprintf('Error reading file %s', $path));
+        }
         $faker = Factory::create($this->locale);
         $content = $faker->parse($content);
-        $feature = $this->parser->parse($content, $path);
 
-        return $feature;
+        return $this->parser->parse($content, $path);
     }
 }
