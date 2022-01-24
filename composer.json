@@ -2,6 +2,7 @@
     "name": "plozmun/behat-faker-extension",
     "description": "Behat Faker Extension",
     "type": "behat-extension",
+    "license": "MIT",
     "authors": [
         {
             "name": "Pablo Lozano",
