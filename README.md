@@ -1,6 +1,6 @@
 # Behat Faker Extension
 
-Integrate PHPFaker with Behat specially useful for APIs
+Faker PHP integration with Behat Gherkin language
 
 ## Instalation
 
@@ -22,7 +22,7 @@ default:
 
 ## Usage 
 
-Add your Faker function between braces: Ej: `{{firsName}}`
+Add your PHP Faker function between braces: Ej: `{{firsName}}`
 
 [Faker PHP Documentation](https://fakerphp.github.io/)
 

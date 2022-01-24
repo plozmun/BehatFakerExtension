@@ -18,7 +18,20 @@ class FakerExtension implements Extension
 
     public function configure(ArrayNodeDefinition $builder): void
     {
-        $builder->children()->scalarNode('locale')->defaultValue('en');
+        $builder
+            ->addDefaultsIfNotSet()
+            ->children()
+                ->scalarNode('locale')->defaultValue('en')->end()
+                ->scalarNode('cache')
+                    ->info('Sets the faker parser cache folder')
+                    ->defaultValue(
+                        is_writable(sys_get_temp_dir())
+                        ? sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'faker_behat_cache'
+                        : null
+                    )
+                ->end()
+            ->end()
+        ;
     }
 
     public function process(ContainerBuilder $container): void
@@ -27,7 +40,7 @@ class FakerExtension implements Extension
 
     public function load(ContainerBuilder $container, array $config): void
     {
-        $container->setParameter('behat_faker.locale', $config['locale']);
+        $container->setParameter('faker_behat.locale', $config['locale']);
         $this->loadDefaultLoaders($container, $config['cache']);
     }
 
@@ -48,7 +61,7 @@ class FakerExtension implements Extension
         $definition = new Definition('Plozmun\FakerExtension\Loader\FakerFileLoader', array(
             new Reference('gherkin.parser'),
             $cacheDefinition,
-            $container->getParameter('behat_faker.locale'),
+            $container->getParameter('faker_behat.locale'),
         ));
 
         $definition->addMethodCall('setBasePath', ['%paths.base%']);
