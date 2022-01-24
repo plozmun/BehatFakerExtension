@@ -24,7 +24,7 @@ default:
 
 Add your PHP Faker function between braces: 
 
-Ej: `{{firsName}}` or complex functions `{{dateTimeInInterval('-5 years', '-1 years').format('Y-m-d')}}` 
+Ej: `{{firsName}}` or complex functions `{{dateTimeBetween('-5 years', '-1 years').format('Y-m-d')}}` 
 
 [Faker PHP Documentation](https://fakerphp.github.io/)
 

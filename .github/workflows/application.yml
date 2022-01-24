@@ -1,4 +1,4 @@
-name: Test application
+name: Test library
 
 on:
   pull_request:
