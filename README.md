@@ -46,4 +46,15 @@ Feature: Create a Book
     }
     """
     And the response status code should be 200
+
+  Scenario: Show published books
+    Given the following products exist:
+      | ean     | title         |
+      | {{ean}} | {{sentence}}  |
+      | {{ean}} | {{sentence}}  |
+    When I go to "/admin/books"
 ```
+
+## Contributors
+
+Pablo Lozano - [plozmun](https://github.com/plozmun) [lead developer]
