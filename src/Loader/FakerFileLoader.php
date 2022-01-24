@@ -86,10 +86,14 @@ final class FakerFileLoader extends AbstractFileLoader
         $expressionLanguage = new ExpressionLanguage();
 
         $callback = function ($matches) use ($faker, $expressionLanguage) {
-            $expressionLanguage->evaluate("faker.".$matches[1], ['faker' => $faker]);
+            return $expressionLanguage->evaluate("faker.".$matches[1], ['faker' => $faker]);
         };
 
         $content = preg_replace_callback('#\{\{(.*?)\}\}#', $callback, $content);
+
+        if (!is_string($content)) {
+            throw new \RuntimeException("Content cannot be parsed");
+        }
 
         return $this->parser->parse($content, $path);
     }
