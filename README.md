@@ -22,7 +22,9 @@ default:
 
 ## Usage 
 
-Add your PHP Faker function between braces: Ej: `{{firsName}}`
+Add your PHP Faker function between braces: 
+
+Ej: `{{firsName}}` or complex functions `{{dateTimeInInterval('-5 years', '-1 years').format('Y-m-d')}}` 
 
 [Faker PHP Documentation](https://fakerphp.github.io/)
 
@@ -42,7 +44,7 @@ Feature: Create a Book
           "lastName": "{{lastName}}"
       },
       "title": "{{sentence}}",
-      "createdAt": "{{year}}-{{month}}-{{dayOfMonth}}
+      "createdAt": "{{dateTimeInInterval('-5 years', '-1 years').format('Y-m-d')}}
     }
     """
     And the response status code should be 200
