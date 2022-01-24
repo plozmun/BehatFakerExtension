@@ -1,6 +1,6 @@
 # Behat Faker Extension
 
-Integrate PHPFaker with Behat specially useful for APIs
+Faker PHP integration with Behat Gherkin language
 
 ## Instalation
 
@@ -22,7 +22,7 @@ default:
 
 ## Usage 
 
-Add your Faker function between braces: Ej: `{{firsName}}`
+Add your PHP Faker function between braces: Ej: `{{firsName}}`
 
 [Faker PHP Documentation](https://fakerphp.github.io/)
 
@@ -46,4 +46,15 @@ Feature: Create a Book
     }
     """
     And the response status code should be 200
+
+  Scenario: Show published books
+    Given the following products exist:
+      | ean     | title         |
+      | {{ean}} | {{sentence}}  |
+      | {{ean}} | {{sentence}}  |
+    When I go to "/admin/books"
 ```
+
+## Contributors
+
+Pablo Lozano - [plozmun](https://github.com/plozmun) [lead developer]
