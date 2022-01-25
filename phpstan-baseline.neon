@@ -1,0 +1,32 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Cannot call method scalarNode\\(\\) on Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeParentInterface\\|null\\.$#"
+			count: 1
+			path: src/ServiceContainer/FakerExtension.php
+
+		-
+			message: "#^Method Plozmun\\\\FakerExtension\\\\ServiceContainer\\\\FakerExtension\\:\\:loadDefaultLoaders\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/ServiceContainer/FakerExtension.php
+
+		-
+			message: "#^Cannot access an offset on mixed\\.$#"
+			count: 1
+			path: tests/Behat/Context/TestContext.php
+
+		-
+			message: "#^Constant BEHAT_BIN_PATH not found\\.$#"
+			count: 1
+			path: tests/Behat/Context/TestContext.php
+
+		-
+			message: "#^Method Tests\\\\Behat\\\\Context\\\\TestContext\\:\\:getProcessExitCode\\(\\) should return int but returns int\\|null\\.$#"
+			count: 1
+			path: tests/Behat/Context/TestContext.php
+
+		-
+			message: "#^Method Tests\\\\Behat\\\\Context\\\\TestContext\\:\\:thereIsFeatureFile\\(\\) has parameter \\$content with no type specified\\.$#"
+			count: 1
+			path: tests/Behat/Context/TestContext.php
+
