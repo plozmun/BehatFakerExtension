@@ -1,3 +1,6 @@
+includes:
+    - phpstan-baseline.neon
+
 parameters:
     level: max
     paths:
@@ -6,4 +9,4 @@ parameters:
 
     excludePaths:
         - %currentWorkingDirectory%/vendor/*
-        - %currentWorkingDirectory%/src/ServiceContainer/*
+

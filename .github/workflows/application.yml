@@ -82,3 +82,6 @@ jobs:
 
       -   name: Run Code Sniffer
           run: vendor/bin/phpcs
+
+      -   name: Run Tests
+          run: composer tests
