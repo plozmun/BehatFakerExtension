@@ -40,6 +40,7 @@ Feature: Running application with faker parameters
             /** @Then the passed faker parameter :date should be a string date */
             public function parameterShouldBeDate(string $date): void {
                 $object = \DateTime::createFromFormat('Y-m-d', $date);
+                assert($object instanceOf \DateTime);
                 assert($object->format("Y-m-d") === $date);
             }
         }

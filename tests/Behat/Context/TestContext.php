@@ -66,57 +66,12 @@ final class TestContext implements Context
 declare(strict_types=1);
 
 $loader = require '%s';
-$loader->addPsr4('App\\', __DIR__ . '/../src/');
 $loader->addPsr4('Plozmun\\FakerExtension\\', '%s');
 $loader->addPsr4('App\\Tests\\', __DIR__ . '/../tests/');
 
 return $loader; 
 CON
             , __DIR__ . '/../../../vendor/autoload.php', __DIR__ . '/../../../src'));
-
-        // Kernel
-        $this->thereIsFile(
-            'src/Kernel.php',
-            <<<'CON'
-<?php
-
-declare(strict_types=1);
-
-namespace App;
-
-use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
-use Symfony\Component\Config\Loader\LoaderInterface;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\HttpKernel\Kernel as HttpKernel;
-use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
-
-class Kernel extends HttpKernel
-{
-    use MicroKernelTrait;
-
-    public function registerBundles(): iterable
-    {
-        return [
-            new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
-        ];
-    }
-
-    protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
-    {
-        $container->loadFromExtension('framework', [
-            'test' => $this->getEnvironment() === 'test',
-            'secret' => 'Pigeon',
-        ]);
-        
-        $loader->load(__DIR__ . '/../config/default.yaml');
-        $loader->load(__DIR__ . '/../config/services.yaml');
-    }
-}
-CON
-        );
-
-        // Se
-        $this->thereIsFile('config/services.yaml', '');
     }
 
     /**
